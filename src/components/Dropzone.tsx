@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { Upload, Image as ImageIcon } from 'lucide-react';
+import { useCallback, useEffect, useState } from 'react';
+import { Upload } from 'lucide-react';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 

@@ -2,7 +2,7 @@ import { AutoModel, AutoProcessor, env, RawImage } from '@huggingface/transforme
 
 // Skip local model check since we are running in browser
 env.allowLocalModels = false;
-env.backends.onnx.wasm.proxy = false; // Disable proxy to use worker directly
+if (env.backends.onnx.wasm) env.backends.onnx.wasm.proxy = false; // Disable proxy to use worker directly
 
 class RMBGModel {
   static model: any = null;
@@ -14,7 +14,7 @@ class RMBGModel {
         progress_callback: onProgress,
         config: {
           model_type: 'custom'
-        },
+        } as any,
         device: 'wasm' // Using wasm explicitly for broad compatibility
       });
       this.processor = await AutoProcessor.from_pretrained('briaai/RMBG-1.4', {
@@ -26,7 +26,7 @@ class RMBGModel {
 }
 
 let cachedImageData: ImageData | null = null;
-let cachedMaskData: Uint8Array | null = null;
+let cachedMaskData: Uint8Array | Uint8ClampedArray | null = null;
 let cachedWidth: number = 0;
 let cachedHeight: number = 0;
 
@@ -102,7 +102,7 @@ self.onmessage = async (e: MessageEvent) => {
     try {
       if (!cachedImageData || !cachedMaskData) return;
       
-      const { threshold = 0.5, backgroundColor = 'transparent', bgBlur = false } = payload;
+      const { threshold = 0.5, backgroundColor = 'transparent' } = payload;
       
       const width = cachedWidth;
       const height = cachedHeight;

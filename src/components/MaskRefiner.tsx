@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState, useCallback } from 'react';
+import { useRef, useEffect, useState, useCallback } from 'react';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
@@ -162,7 +162,7 @@ export function MaskRefiner({ originalImage, processedImage, imageSize, brushSiz
     }
   };
 
-  const stopDrawing = () => {
+  const stopDrawing = useCallback(() => {
     if (!isDrawing || !ctx) return;
     setIsDrawing(false);
     ctx.closePath();
@@ -173,7 +173,7 @@ export function MaskRefiner({ originalImage, processedImage, imageSize, brushSiz
     
     // Clear worker memory canvas so strokes don't accumulate
     ctx.clearRect(0, 0, imageSize.width, imageSize.height);
-  };
+  }, [isDrawing, ctx, imageSize, onMaskUpdate]);
 
   const stopDrawingRef = useRef(stopDrawing);
   

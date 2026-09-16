@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { Download, Copy, Loader2, RefreshCw, Megaphone } from 'lucide-react';
 import { Dropzone } from './components/Dropzone';
 import { ComparisonSlider } from './components/ComparisonSlider';
@@ -29,7 +29,7 @@ export default function App() {
   const [legalModalType, setLegalModalType] = useState<'privacy' | 'terms' | null>(null);
 
   const workerRef = useRef<Worker | null>(null);
-  const debounceRef = useRef<NodeJS.Timeout | null>(null);
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const postProcessConfigRef = useRef({ threshold, backgroundColor });
   useEffect(() => {
@@ -81,8 +81,8 @@ export default function App() {
     return () => {
       if (workerRef.current) {
         workerRef.current.terminate();
+        workerRef.current = null;
       }
-    };
     };
   }, []);
 
@@ -251,7 +251,7 @@ export default function App() {
           </div>
         )}
 
-        {(appState === 'READY' || (appState === 'IDLE' && !originalUrl)) && !originalUrl && appState !== 'DOWNLOADING' && appState !== 'ERROR' && (
+        {(appState === 'READY' || (appState === 'IDLE' && !originalUrl)) && !originalUrl && (
           <Dropzone onImageSelect={handleImageSelect} />
         )}
 

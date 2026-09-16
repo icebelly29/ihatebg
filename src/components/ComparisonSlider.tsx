@@ -1,10 +1,7 @@
-import React, { useState, useRef, useCallback, useEffect } from 'react';
-import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
+import { useState, useRef, useCallback, useEffect } from 'react';
 
-function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
+
+
 
 interface ComparisonSliderProps {
   originalImage: string;

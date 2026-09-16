@@ -29,5 +29,11 @@
     "oxlint": "^1.81.0",
     "typescript": "~6.0.2",
     "vite": "^8.3.0"
+  },
+  "lavamoat": {
+    "allowScripts": {
+      "@huggingface/transformers>onnxruntime-node#1.30.0": false,
+      "@huggingface/transformers>onnxruntime-web>protobufjs#7.6.6": false
+    }
   }
 }
