@@ -25,15 +25,3 @@ Features include:
 2. Images are passed to a Web Worker as zero-copy `ImageBitmap` objects.
 3. The worker runs inference and composites the resulting mask into the image's alpha channel using an `OffscreenCanvas`.
 4. The brush refinement tool merges user stroke data directly into the cached mask buffer, allowing instant updates without re-running the model.
-
-## Development
-
-```bash
-# Install dependencies
-npm install
-
-# Start the dev server
-npm run dev
-```
-
-The Vite dev server is configured with `Cross-Origin-Opener-Policy` and `Cross-Origin-Embedder-Policy` headers to enable `SharedArrayBuffer` for WebAssembly/WebGPU performance.
